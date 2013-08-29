@@ -1,0 +1,10 @@
+<% @public_keys.each do |public_key| %>
+  <div id="public_key_<%= public_key.id %>">
+    <div class="public_key_name">
+      <%= public_key.name %>
+    </div>
+    <div class="public_key_value">
+      <%= public_key.value %>
+    </div>
+  </div>
+<% end %>
