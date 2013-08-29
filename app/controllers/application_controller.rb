@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     if current_user.present?
       return true
     else
+      flash[:error] = "You need to be logged in to access that!"
       redirect_to new_session_path
       return false
     end
