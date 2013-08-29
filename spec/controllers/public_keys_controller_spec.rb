@@ -86,4 +86,52 @@ describe PublicKeysController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    context "when user is logged in" do
+      let(:current_user_mock) { double('current user') }
+
+      before do
+        allow(controller).to receive(:current_user).and_return(current_user_mock)
+      end
+
+      it "finds the key with the given id" do
+        public_keys_stub = double('public keys')
+        allow(current_user_mock).to receive(:public_keys).and_return(public_keys_stub)
+        public_key_stub = double('public key', destroy: nil)
+        expect(public_keys_stub).to receive(:find_by_id).and_return(public_key_stub)
+        delete :destroy, id: 2343
+      end
+
+      context "when finds the specified key" do
+        let(:public_key_stub) { double('public key', destroy: nil) }
+
+        before do
+          controller.stub_chain(:current_user, :public_keys, :find_by_id).and_return(public_key_stub)
+        end
+
+        it "deletes the public key" do
+          expect(public_key_stub).to receive(:destroy)
+          delete :destroy, id: 2343
+        end
+
+        it "redirects to the list public keys page" do
+          delete :destroy, id: 2343
+          expect(response).to redirect_to(public_keys_path)
+        end
+      end
+
+      context "when does NOT find the specified key" do
+        before do
+          controller.stub_chain(:current_user, :public_keys, :find_by_id).and_return(nil)
+        end
+
+        it "redirects to the list public keys page" do
+          delete :destroy, id: 2343
+          expect(response).to redirect_to(public_keys_path)
+        end
+      end
+
+    end
+  end
 end

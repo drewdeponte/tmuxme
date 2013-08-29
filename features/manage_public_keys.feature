@@ -18,3 +18,8 @@ Feature: Manage Public Keys
     Then I should see public key I just added
 
   Scenario: A user removes a public key from his/her collection
+    Given I am a user
+    And I am logged in
+    And I have a public key
+    When I delete that key
+    Then I should no longer see my public key

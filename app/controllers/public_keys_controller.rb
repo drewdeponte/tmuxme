@@ -15,6 +15,14 @@ class PublicKeysController < ApplicationController
     redirect_to public_keys_path
   end
 
+  def destroy
+    public_key = current_user.public_keys.find_by_id(params[:id])
+    if public_key
+      public_key.destroy
+    end
+    redirect_to public_keys_path
+  end
+
   private
 
   def public_key_params

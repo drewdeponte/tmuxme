@@ -26,3 +26,13 @@ Then(/^I should see public key I just added$/) do
   expect(page).to have_content('test key name')
   expect(page).to have_content('test key value')
 end
+
+When(/^I delete that key$/) do
+  visit '/public_keys'
+  click_link 'Delete'
+end
+
+Then(/^I should no longer see my public key$/) do
+  page.should_not have_content("my bar key")
+  page.should_not have_content("the actual bar key value")
+end

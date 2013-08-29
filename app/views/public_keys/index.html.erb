@@ -6,5 +6,6 @@
     <div class="public_key_value">
       <%= public_key.value %>
     </div>
+    <%= link_to 'Delete', public_key_path(public_key), data: { confirm: 'Are you sure?' }, method: :delete %>
   </div>
 <% end %>
