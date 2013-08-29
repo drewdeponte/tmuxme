@@ -1,0 +1,7 @@
+<%= form_for @public_key do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :value %>
+  <%= f.text_area :value %>
+  <%= f.submit 'submit' %>
+<% end %>

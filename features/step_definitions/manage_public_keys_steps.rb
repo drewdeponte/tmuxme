@@ -11,6 +11,18 @@ When(/^I go to the public keys page$/) do
 end
 
 Then(/^I should see my public keys$/) do
-  page.should have_content("my bar key")
-  page.should have_content("the actual bar key value")
+  expect(page).to have_content("my bar key")
+  expect(page).to have_content("the actual bar key value")
+end
+
+When(/^I fill out the add public key form$/) do
+  visit '/public_keys/new'
+  fill_in 'Name', with: 'test key name'
+  fill_in 'Value', with: 'test key value'
+  click_button 'submit'
+end
+
+Then(/^I should see public key I just added$/) do
+  expect(page).to have_content('test key name')
+  expect(page).to have_content('test key value')
 end

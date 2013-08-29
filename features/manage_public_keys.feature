@@ -12,5 +12,9 @@ Feature: Manage Public Keys
     Then I should see my public keys
 
   Scenario: A user adds a public key to his/her collection
+    Given I am a user
+    And I am logged in
+    When I fill out the add public key form
+    Then I should see public key I just added
 
   Scenario: A user removes a public key from his/her collection
