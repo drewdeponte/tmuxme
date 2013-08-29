@@ -10,6 +10,8 @@ set :use_sudo, false
 
 server "tmux.me", :app, :web, :db, :primary => true
 
+before "deploy:assets:precompile", "deploy:configs_symlink"
+
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
 
