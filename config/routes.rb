@@ -3,5 +3,5 @@ Tmuxme::Application.routes.draw do
   resources :sessions
   resources :password_resets
 
-  root :to => 'sessions#new'
+  root :to => 'landing_page#show'
 end
