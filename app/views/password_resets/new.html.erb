@@ -1,0 +1,10 @@
+<div style="max-width: 400px; margin: 0 auto;">
+  <fieldset>
+    <legend>Forgot Password?</legend>
+    <%= form_tag password_resets_path do %>
+      <%= text_field_tag :email, params[:email], :placeholder => 'Your Email Address', :tabindex => 1, :class => "input-block-level" %>
+
+      <%= submit_tag "Request Password Reset", :class => "btn btn-primary", :tabindex => 2 %>
+    <% end %>
+  </fieldset>
+</div>

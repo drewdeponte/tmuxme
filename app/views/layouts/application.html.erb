@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+
+  <link rel="icon" href="/favicon.ico" />
+	
+	<!-- Uncomment to make IE8 render like IE7 -->
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+	
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<title><%= content_for?(:title) ? yield(:title) : "tmux.me" %></title>
+  
+	<!-- Included CSS Files -->
+  <%= stylesheet_link_tag :application, :media => :all %>
+	
+	<!-- Included JS Files  -->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="brand" href="<%= root_path -%>">
+        </a>
+        <div class="nav-collapse collpase" style="margin-top: 12px;">
+          <ul class="nav">
+            <li class="divider-vertical"></li>
+          </ul>
+          <% if current_user %>
+          <p class="navbar-text pull-right">Logged in as <%= current_user.email %></p>
+          <ul class="nav pull-right">
+            <li><%= link_to 'Log Out', session_path('current'), method: "delete" %></li>
+          </ul>
+          <% else %>
+          <ul class="nav pull-right">
+            <li><%= link_to 'Sign Up', new_user_path %></li>
+            <li><%= link_to 'Log In', new_session_path %></li>
+          </ul>
+          <% end %>
+          <ul class="nav pull-right">
+            <li><a href="mailto:support@tmux.me">Email Us</a></li>
+            <li class="divider-vertical"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Basic Content Layout -->
+  <div class="container">
+    <div class="row-fluid">
+      <%= content_for?(:subtitle) ? yield(:subtitle) : "" %>
+    </div>
+
+    <% flash.each do |name, msg| %>
+      <% if name == :success %>
+        <div class="alert alert-success">
+      <% elsif name == :error %>
+        <div class="alert alert-error">
+      <% elsif name == :info %>
+        <div class="alert alert-info">
+      <% else %>
+        <div class="alert">
+      <% end %>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= msg -%>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </div>
+
+  <hr>
+
+  <footer class="container">
+    <div class="row-fluid text-center">
+      <p>Brought to you by the Blue Monkeys</p>
+    </div>
+  </footer>
+	<%= javascript_include_tag "application" %>
+</body>
+</html>
