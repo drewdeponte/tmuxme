@@ -1,7 +1,15 @@
+load 'deploy/assets'
+require 'rvm/capistrano'
+require "rvm/capistrano/alias_and_wrapp"
+
+set :rvm_ruby_string, :local
+set :rvm_autolibs_flag, "packages"
+
 set :application, "tmuxme"
 set :repository,  "git@github.com:realpractice/tmuxme.git"
 set :user, "deploy"
 set :ssh_options, { :forward_agent => true}
+
 
 set :use_sudo, false
 
@@ -10,7 +18,10 @@ set :use_sudo, false
 
 server "tmux.me", :app, :web, :db, :primary => true
 
-before "deploy:assets:precompile", "deploy:configs_symlink"
+before 'deploy', 'rvm:create_alias'
+before 'deploy', 'rvm:create_wrappers'
+before 'deploy:setup', 'rvm:install_rvm'
+before 'deploy:setup', 'rvm:install_ruby'
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
