@@ -1,14 +1,14 @@
 set :application, "tmuxme"
 set :repository,  "git@github.com:realpractice/tmuxme.git"
-set :user, “deploy"
+set :user, "deploy"
+set :ssh_options, { :forward_agent => true}
+
+set :use_sudo, false
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "tmux.me"                          # Your HTTP server, Apache/etc
-role :app, "tmux.me"                          # This may be the same as your `Web` server
-role :db,  "tmux.me", :primary => true # This is where Rails migrations will run
-#role :db,  "your slave db-server here"
+server "tmux.me", :app, :web, :db, :primary => true
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
