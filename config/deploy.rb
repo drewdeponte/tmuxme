@@ -1,6 +1,7 @@
 load 'deploy/assets'
 require 'rvm/capistrano'
 require "rvm/capistrano/alias_and_wrapp"
+require 'bundler/capistrano'
 
 set :rvm_ruby_string, :local
 set :rvm_autolibs_flag, "packages"
