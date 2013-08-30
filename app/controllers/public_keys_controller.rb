@@ -12,6 +12,7 @@ class PublicKeysController < ApplicationController
 
   def create
     current_user.public_keys.create!(public_key_params)
+    AuthorizedKeysGenerator.generate_and_write
     redirect_to public_keys_path
   end
 
@@ -19,6 +20,7 @@ class PublicKeysController < ApplicationController
     public_key = current_user.public_keys.find_by_id(params[:id])
     if public_key
       public_key.destroy
+      AuthorizedKeysGenerator.generate_and_write
     end
     redirect_to public_keys_path
   end
