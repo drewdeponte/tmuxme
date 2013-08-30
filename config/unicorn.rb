@@ -3,6 +3,11 @@ if ENV['RACK_ENV'] == 'development'
 else
   worker_processes 3
 end
+
+if ENV['RACK_ENV'] == 'production'
+  working_directory "/u/apps/tmuxme/current"
+  pid '/var/run/unicorn/tmuxme.pid'
+end
 timeout 30
 preload_app true
 
