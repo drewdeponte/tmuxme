@@ -1,13 +1,13 @@
 Tmuxme::Application.routes.draw do
-  resources :users
-  resources :sessions
-  resources :password_resets
-  resources :public_keys
+  resources :users, :only => [:new, :create]
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :password_resets, :only => [:new, :create, :edit, :update]
+  resources :public_keys, :only => [:index]
 
   namespace :api do
     namespace :v1 do
       resources :users do
-        resources :public_keys
+        resources :public_keys, :only => [:index]
       end
     end
   end
