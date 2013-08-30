@@ -3,6 +3,6 @@ class UserMailer < ActionMailer::Base
 
   def password_reset(user)
     @user = user
-    mail :to => user.email, :from => "noreply@tmux.me", :subject => "Password Reset"
+    mail :to => user.email, :subject => "tmux.me: Password Reset"
   end
 end
