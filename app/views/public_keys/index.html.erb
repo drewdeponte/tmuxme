@@ -1,11 +1,20 @@
-<% @public_keys.each do |public_key| %>
-  <div id="public_key_<%= public_key.id %>">
-    <div class="public_key_name">
-      <%= public_key.name %>
-    </div>
-    <div class="public_key_value">
-      <%= public_key.value %>
-    </div>
-    <%= link_to 'Delete', public_key_path(public_key), data: { confirm: 'Are you sure?' }, method: :delete %>
+<div class="row">
+  <div class="span12">
+    <section>
+      <h1>Your SSH Keys</h1>
+      <p>Need help with keys? GitHub has <a href="https://help.github.com/categories/56/articles" target="_new">great documentation on SSH keys</a>.</p>
+      <table id="public_keys_table" class="table table-striped">
+        <% @public_keys.each do |public_key| %>
+          <tr id="public_key_<%= public_key.id %>">
+            <th class="public_key_name"><i class="icon-key"></i> <%= public_key.name %></th>
+            <td class="public_key_value" title="<%= public_key.value %>"><%= public_key.value %></td>
+            <td class="public_key_delete"><%= link_to 'Delete', public_key_path(public_key), data: { confirm: 'Are you sure?' }, method: :delete, :class => "btn btn-danger btn-small" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+    <section class="center">
+      <%= link_to 'Add Another Key', new_public_key_path, :class => 'btn btn-large btn-primary' %>
+    </section>
   </div>
-<% end %>
+</div>

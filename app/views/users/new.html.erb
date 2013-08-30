@@ -1,32 +1,34 @@
-<div style="max-width: 400px; margin: 0 auto;">
-  <fieldset>
-<% if session['subscription_token'].present? %>
-  <legend>Join Subscription</legend>
-  <div class="well well-large">
-    In order to Join the Subscription please Sign Up for a free account. Or, if you already have an
-    account please <%= link_to 'Sign In', new_session_path, {:class => "btn btn-mini btn-primary"} -%>.
+<div class="row">
+  <div class="span4 offset4">
+      <fieldset>
+    <% if session['subscription_token'].present? %>
+      <h1>Join Subscription</h1>
+      <div class="well well-large">
+        In order to Join the Subscription please Sign Up for a free account. Or, if you already have an
+        account please <%= link_to 'Sign In', new_session_path, {:class => "btn btn-mini btn-primary"} -%>.
+      </div>
+    <% else %>
+      <h1>Sign Up</h1> 
+    <% end %>
+
+    <%= form_for @user do |f| %>
+      <% if @user.errors.any? %>
+        <div class="error_messages">
+          <h2>Form is invalid</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 1, :class => "input-block-level", :style => "margin-bottom: 25px;" %>
+      <%= f.password_field :password, :placeholder => 'Password', :tabindex => 2, :class => "input-block-level" %> 
+      <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 3, :class => "input-block-level" %>
+
+      <%= f.submit "Sign Up", {:class => "btn btn-primary", :tabindex => 4} %>
+    <% end %>
+      </fieldset>
   </div>
-<% else %>
-  <legend>Sign Up</legend> 
-<% end %>
-
-<%= form_for @user do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 1, :class => "input-block-level", :style => "margin-bottom: 25px;" %>
-  <%= f.password_field :password, :placeholder => 'Password', :tabindex => 2, :class => "input-block-level" %> 
-  <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 3, :class => "input-block-level" %>
-
-  <%= f.submit "Sign Up", {:class => "btn btn-primary", :tabindex => 4} %>
-<% end %>
-</fieldset>
 </div>

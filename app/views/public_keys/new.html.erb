@@ -1,7 +1,14 @@
-<%= form_for @public_key do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :value %>
-  <%= f.text_area :value %>
-  <%= f.submit 'submit' %>
-<% end %>
+<div class="row">
+  <div class="span6 offset3">
+    <h1>Add an SSH Key</h1>
+    <p>Need help with keys? GitHub has <a href="https://help.github.com/categories/56/articles" target="_new">great documentation on SSH keys</a>.</p>
+    <hr>
+    <%= form_for @public_key do |f| %>
+      <%= f.label :name, "Name (for your reference)" %>
+      <%= f.text_field :name, :class => 'input-block-level' %>
+      <%= f.label :value, "Key" %>
+      <%= f.text_area :value, :class => 'input-block-level', :rows => "10" %>
+      <%= f.submit 'Add this Key', :class => 'btn btn-large btn-primary' %>
+    <% end %>
+  </div>
+</div>

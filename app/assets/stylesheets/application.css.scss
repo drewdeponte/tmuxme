@@ -12,6 +12,39 @@
  *= require_tree .
  */
 @import "bootstrap";
+@import "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css";
+
 body {
-  padding-top: 60px;
+  padding-top: 80px;
+}
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+label {
+  color: #666;
+  font-weight: bold;
+}
+th.public_key_name {
+  width: 160px;
+}
+td.public_key_value {
+  max-width: 700px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+td.public_key_delete {
+  width: 80px;
+}
+
+a [class^="icon-"],
+a [class*=" icon-"] {
+  margin-right: .4em;
+}
+
+a:hover [class^="icon-"],
+a:hover [class*=" icon-"] {
+  text-decoration: none !important;
 }
