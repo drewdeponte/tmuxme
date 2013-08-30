@@ -6,6 +6,7 @@ Tmuxme::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :pairing_sessions, :only => [:create]
       resources :users do
         resources :public_keys, :only => [:index]
       end
