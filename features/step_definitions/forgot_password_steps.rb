@@ -5,7 +5,7 @@ When /^I fill out and submit the forgot password form$/ do
 end
 
 Then /^I should see the successfully sent password reset instructions email$/ do
-  page.should have_content('Successfully sent password reset instructions to your e-mail.')
+  page.should have_content("We sent an email to you with instructions on how to reset your password.")
   # ActionMailer::Base.deliveries.last.to.should == [@user.email]
 end
 

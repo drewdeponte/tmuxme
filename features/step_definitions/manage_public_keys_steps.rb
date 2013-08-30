@@ -17,9 +17,9 @@ end
 
 When(/^I fill out the add public key form$/) do
   visit '/public_keys/new'
-  fill_in 'Name', with: 'test key name'
-  fill_in 'Value', with: 'test key value'
-  click_button 'submit'
+  fill_in 'public_key_name', with: 'test key name'
+  fill_in 'public_key_value', with: 'test key value'
+  click_button 'Add this Key'
 end
 
 Then(/^I should see public key I just added$/) do

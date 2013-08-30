@@ -1,5 +1,5 @@
 When /^I sign out$/ do
-  click_link 'Log Out'
+  click_link 'Sign Out'
 end
 
 Then /^I should see the successfully logged out message$/ do
