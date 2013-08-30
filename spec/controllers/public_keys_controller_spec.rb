@@ -78,6 +78,14 @@ describe PublicKeysController do
         post :create, public_key: { name: 'my key blue', value: 'my key blues value' }
       end
 
+      it "regenerates and writes the authorized keys file" do
+        public_keys_mock = double('public keys arel obj')
+        allow(current_user_mock).to receive(:public_keys).and_return(public_keys_mock)
+        allow(public_keys_mock).to receive(:create!)
+        expect(AuthorizedKeysGenerator).to receive(:generate_and_write)
+        post :create, public_key: { name: 'my key blue', value: 'my key blues value' }
+      end
+
       it "redirects to the list public keys page" do
         public_keys_mock = double('public keys arel obj').as_null_object
         allow(current_user_mock).to receive(:public_keys).and_return(public_keys_mock)
@@ -112,6 +120,11 @@ describe PublicKeysController do
 
         it "deletes the public key" do
           expect(public_key_stub).to receive(:destroy)
+          delete :destroy, id: 2343
+        end
+
+        it "regenerates and writes the authorized keys file" do
+          expect(AuthorizedKeysGenerator).to receive(:generate_and_write)
           delete :destroy, id: 2343
         end
 
