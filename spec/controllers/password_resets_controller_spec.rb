@@ -101,7 +101,7 @@ describe PasswordResetsController do
         User.stub(:find_by_password_reset_token!).and_return(user)
         user.stub(:update_attributes).and_return(true)
         put :update, :id => 'myresettoken', :user => {:password => 'somepassword', :password_confirmation => 'somepassword'} 
-        controller.should redirect_to(root_path)
+        controller.should redirect_to(new_session_path)
       end
 
       it "renders edit template if updating the user attributes fails" do
