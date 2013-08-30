@@ -51,10 +51,12 @@ gem 'cancan'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# We are deploying using rvm in production too
+gem 'rvm-capistrano'
+
 # Gems used only for development and testing
 group :development, :test do
   gem 'capistrano'
-  gem 'rvm-capistrano'
   gem 'factory_girl'
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails'
