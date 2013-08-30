@@ -4,7 +4,7 @@ else
   worker_processes 3
 end
 
-if ENV['RACK_ENV'] == 'production'
+if ENV['RAILS_ENV'] == 'production'
   working_directory "/u/apps/tmuxme/current"
   pid '/var/run/unicorn/tmuxme.pid'
 end
