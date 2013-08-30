@@ -1,20 +1,22 @@
-<div style="max-width: 400px; margin: 0 auto;">
-  <fieldset>
-    <legend>Reset Password</legend>
-    <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
-      <% if @user.errors.any? %>
-        <div class="error_messages">
-          <h2>Form is invalid</h2>
-          <ul>
-            <% for message in @user.errors.full_messages %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
+<div class="row">
+  <div class="span4 offset4">
+    <fieldset>
+      <h2>Reset Password</h2>
+      <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+        <% if @user.errors.any? %>
+          <div class="error_messages">
+            <h2>Form is invalid</h2>
+            <ul>
+              <% for message in @user.errors.full_messages %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= f.password_field :password, :placeholder => "New Password", :tabindex => 1, :class => "input-block-level" %>
+        <%= f.password_field :password_confirmation, :placeholder => "New Password Confirmation", :tabindex => 2, :class => "input-block-level" %>
+        <%= f.submit "Update Password", :tabindex => 3, :class => "btn btn-primary" %>
       <% end %>
-      <%= f.password_field :password, :placeholder => "New Password", :tabindex => 1, :class => "input-block-level" %>
-      <%= f.password_field :password_confirmation, :placeholder => "New Password Confirmation", :tabindex => 2, :class => "input-block-level" %>
-      <%= f.submit "Update Password", :tabindex => 3, :class => "btn btn-primary" %>
-    <% end %>
-  </fieldset>
+    </fieldset>
+  </div>
 </div>

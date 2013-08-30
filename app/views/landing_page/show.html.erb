@@ -1,1 +1,69 @@
-The Landing Page
+<div class="row">
+  <div class="span12">
+    <section>
+      <div class="page-header">
+      <p class="lead"><strong>TMUX.ME</strong> is a tool that allows you to securely host or join a shared tmux session.</p>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="row">
+  <div class="span6">
+    <% unless current_user.present? %>
+      <h2>Why would I want this?</h2>
+      <ul>
+        <li>Pair program with someone in a different location over SSH</li>
+        <li>Let random people run commands like <code>rm -rf *.*</code> on your box</li>
+      </ul>
+      <h2>That sounds sketchy</h2>
+      <p>If you're hosting a tmuxme session, you should know and trust the people you invite in, because it is like connecting a second keyboard to your computer and letting them type in your terminal.</p>
+      <p>Dangerous? Maybe. Powerful? Definitely.</p>
+    <% end %>
+    <h2>How do I host a session?</h2>
+    <ol>
+      <% if current_user.present? %>
+        <li><code>brew install tmux</code> <span class="muted">(one time only)</span></li>
+        <li><code>gem install tmuxme</code> <span class="muted">(one time only)</span></li>
+      <% else %>
+        <li><code>brew install tmux</code> <emphasis>Don't know tmux?</emphasis> <a href="http://tmux.sourceforge.net" target="_new">Learn about tmux.</a></li>
+        <li><code>gem install tmuxme</code></li>
+      <% end %>
+      <% unless current_user.present? %>
+        <li><%= link_to 'Sign Up for a tmux.me account', new_user_path %>.</li>
+      <% end %>
+      <% if current_user.present? && current_user.public_keys.present? %>
+      <% elsif current_user.present? %>
+        <li><%= link_to 'Add your public SSH key', new_public_key_path %></li>
+      <% else %>
+        <li>Give us your public key.</li>
+      <% end %>
+      <li>Find out your friend's username.</li>
+      <li><code>tmuxme username</code> to start a new session.</li>
+    </ol>
+    <p>Your friend will get an invitation to join the session. When you're done (and you kill the session), the port is closed and their access is shut down... until you start a new session.</p>
+    <p>We know what you're thinking. You have more friends than we do, and you want to have a <abbr title="Massively Multi-Programmer Online Pair Programming Session">MMPOPPS</abbr>. Can you do that? <strong>Of course you can.</strong> Just slam together a bunch of usernames like this: <code>tmuxme username1 username2 username2</code> and you're in business.
+    <h2>How do I join a session?</h2>
+    <ol>
+      <li><strong>No need to install anything.</strong></li>
+      <% unless current_user.present? %>
+        <li><%= link_to 'Sign Up for a tmux.me account', new_user_path %>.</li>
+      <% end %>
+      <% if current_user.present? && current_user.public_keys.present? %>
+      <% elsif current_user.present? %>
+        <li><%= link_to 'Add your public SSH key', new_public_key_path %></li>
+      <% else %>
+        <li>Give us your public key.</li>
+      <% end %>
+      <li>Get an invite to a session from a friend.</li>
+      <li>Follow the directions in the email you receive.</li>
+    </ol>
+  </div>
+  <div class="span6">
+    <%= image_tag "screenshot.png", :style => "max-width: 100%;" %>
+    <% unless current_user.present? %>
+      <div class="center" style="margin-top: 20px;">
+        <%= link_to 'Sign Up to Get Started', new_user_path, :class => 'btn btn-large btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

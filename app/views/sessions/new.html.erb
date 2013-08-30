@@ -1,14 +1,16 @@
-<div style="max-width: 400px; margin: 0 auto;">
-  <fieldset>
-    <legend>Log In</legend>
+<div class="row">
+  <div class="span4 offset4">
+    <fieldset>
+      <h1>Log In</h1>
 
-    <%= form_tag sessions_path, :id => 'new_session_form' do %>
-      <%= text_field_tag :email, params[:email], :placeholder => 'Your Email Address', :tabindex => 1, :class => "input-block-level" %>
+      <%= form_tag sessions_path, :id => 'new_session_form' do %>
+        <%= text_field_tag :email, params[:email], :placeholder => 'Your Email Address', :tabindex => 1, :class => "input-block-level" %>
 
-      <%= password_field_tag :password, nil, :placeholder => 'Your Password', :tabindex => 2, :class => "input-block-level" %>
+        <%= password_field_tag :password, nil, :placeholder => 'Your Password', :tabindex => 2, :class => "input-block-level" %>
 
-      <%= submit_tag "Log In", :tabindex => 3, :class => "btn btn-primary" %>
-      <%= link_to "Forgot Password?", new_password_reset_path, :tabindex => 4, :class => "pull-right" %>
-    <% end %>
-  </fieldset>
+        <%= submit_tag "Log In", :tabindex => 3, :class => "btn btn-primary" %>
+        <%= link_to "Forgot Password?", new_password_reset_path, :tabindex => 4, :class => "pull-right" %>
+      <% end %>
+    </fieldset>
+  </div>
 </div>
