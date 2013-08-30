@@ -38,6 +38,36 @@ namespace :deploy do
   task :symlink_configs do
     run "ln -fs /u/apps/tmuxme/puppet/config/database.yml #{release_path}/config/database.yml"
   end
+
+  desc "Restart unicorn"
+  task :restart, :roles => :web do
+    run "#{sudo} service unicorn restart"
+  end
+  
+  desc "Start unicorn"
+  task :start, :roles => :web do
+    run "#{sudo} service unicorn start"
+  end
+
+  desc "Stop unicorn"
+  task :stop, :roles => :web do
+    run "#{sudo} service unicorn stop"
+  end
+
+  desc "Reload unicorn"
+  task :reload, :roles => :web do
+    run "#{sudo} service unicorn reload"
+  end
+
+  desc "Rotate unicorn"
+  task :rotate, :roles => :web do
+    run "#{sudo} service unicorn rotate"
+  end
+
+  desc "Upgrade unicorn"
+  task :upgrade, :roles => :web do
+    run "#{sudo} service unicorn upgrade"
+  end
 end
 
 # if you want to clean up old releases on each deploy uncomment this:
