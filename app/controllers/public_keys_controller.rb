@@ -11,9 +11,18 @@ class PublicKeysController < ApplicationController
   end
 
   def create
-    current_user.public_keys.create!(public_key_params)
-    AuthorizedKeysGenerator.generate_and_write
-    redirect_to public_keys_path
+    @public_key = current_user.public_keys.new(name: public_key_params[:name], value: public_key_params[:value].strip)
+    if @public_key.save
+      AuthorizedKeysGenerator.generate_and_write
+      redirect_to public_keys_path, flash: { success: "Successfully added your public key!" }
+    else
+      if !@public_key.errors.empty? && @public_key.errors.messages.has_key?(:value)
+        flash[:now] = @public_key.errors.messages[:value][0]
+      else
+        flash[:now] = "Sorry, we failed to save your public key!"
+      end
+      render :new
+    end
   end
 
   def destroy
