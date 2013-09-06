@@ -9,3 +9,6 @@
   and it will pull your public keys in.
 * Make the notify of created pair session endpoint require an API key to
   prevent people abusing the system and spamming users.
+* Add https://ngrok.com/ and http://progrium.com/localtunnel/ and
+  https://getportly.com/ as a kind of friends of tmux.me page explaining how
+  they can be used in combination with tmux.me to ease pair programming.
