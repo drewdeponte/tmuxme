@@ -1,8 +1,10 @@
+EMAIL_CONFIG = YAML::load_file(File.join(File.dirname(__FILE__), '..', 'email.yml'))[::Rails.env]
+
 ActionMailer::Base.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :user_name            => "andrew.deponte@tmux.me",
-  :password             => "gj7OsrA0hCkQ",
-  :authentication       => "plain",
-  :enable_starttls_auto => true
+  :address              => EMAIL_CONFIG['address'],
+  :port                 => EMAIL_CONFIG['port'],
+  :user_name            => EMAIL_CONFIG['user_name'],
+  :password             => EMAIL_CONFIG['password'],
+  :authentication       => EMAIL_CONFIG['authentication'],
+  :enable_starttls_auto => EMAIL_CONFIG['enable_starttls_auto']
 }
