@@ -38,6 +38,7 @@ namespace :deploy do
   task :symlink_configs do
     run "ln -fs /u/apps/tmuxme/puppet/config/database.yml #{release_path}/config/database.yml"
     run "ln -fs /u/apps/tmuxme/puppet/config/email.yml #{release_path}/config/email.yml"
+    run "ln -fs /u/apps/tmuxme/puppet/config/authorized_keys.yml #{release_path}/config/authorized_keys.yml"
   end
 
   desc "Restart unicorn"
