@@ -4,8 +4,5 @@ development:
 test: &test
   authorized_keys_path: /tmp/tmuxme_test_authorized_keys
 
-production:
-  authorized_keys_path: /home/tunnel/.ssh/authorized_keys
-
 cucumber:
   <<: *test
