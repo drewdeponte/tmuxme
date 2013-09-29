@@ -7,7 +7,7 @@ set :rvm_ruby_string, :local
 set :rvm_autolibs_flag, "packages"
 
 set :application, "tmuxme"
-set :repository,  "git@github.com:realpractice/tmuxme.git"
+set :repository,  "git@github.com:reachlocal/tmuxme.git"
 set :user, "deploy"
 set :ssh_options, { :forward_agent => true}
 
