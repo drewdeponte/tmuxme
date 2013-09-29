@@ -39,6 +39,7 @@ namespace :deploy do
     run "ln -fs /u/apps/tmuxme/puppet/config/database.yml #{release_path}/config/database.yml"
     run "ln -fs /u/apps/tmuxme/puppet/config/email.yml #{release_path}/config/email.yml"
     run "ln -fs /u/apps/tmuxme/puppet/config/authorized_keys.yml #{release_path}/config/authorized_keys.yml"
+    run "ln -fs /u/apps/tmuxme/puppet/config/secret_token.yml #{release_path}/config/secret_token.yml"
   end
 
   desc "Restart unicorn"
