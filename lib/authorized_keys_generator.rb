@@ -8,7 +8,7 @@ module AuthorizedKeysGenerator
     public_keys = PublicKey.all
 
     public_keys.each do |public_key|
-      authorized_keys_content << public_key.value.strip
+      authorized_keys_content << "no-pty,command=\"/bin/false\" #{public_key.value.strip}"
     end
 
     return authorized_keys_content.join("\n")
