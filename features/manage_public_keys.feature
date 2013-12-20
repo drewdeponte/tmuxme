@@ -23,3 +23,9 @@ Feature: Manage Public Keys
     And I have a public key
     When I delete that key
     Then I should no longer see my public key
+
+  Scenario: A user attempts to bypass ssh command restrictions
+    Given I am a user
+    And I am logged in
+    When I attempt to add an exploit public key
+    Then I should see the invalid key message
