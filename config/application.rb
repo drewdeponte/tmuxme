@@ -25,3 +25,5 @@ module Tmuxme
     # config.i18n.default_locale = :de
   end
 end
+
+require_relative '../lib/version'
