@@ -1,5 +1,10 @@
 # ChangeLog
 
+## Next Version
+
+* Fixed vulnerability in adding keys. (Thanks goes to joernchen of Phenoelit
+  for identifying this vulnerability.)
+
 ## Version 1.0.0 (Initial Functional Release)
 
 * Account signup
