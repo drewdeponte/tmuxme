@@ -2,6 +2,8 @@
 
 ## Next Version
 
+## Version 1.0.1
+
 * Fixed vulnerability in adding keys. (Thanks goes to joernchen of Phenoelit
   for identifying this vulnerability.)
 
