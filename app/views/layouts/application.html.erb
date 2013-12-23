@@ -25,18 +25,17 @@
 </head>
 <body>
   <!-- Navigation -->
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-        <a class="brand" href="<%= root_path -%>">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="<%= root_path -%>">
           <%= image_tag "tmuxme_logo.png", :style => "height: 40px;" %>
         </a>
-        <div class="nav-collapse collpase" style="margin-top: 12px;">
-          <ul class="nav">
-            <li class="divider-vertical"></li>
-          </ul>
-          <% if current_user %>
-          <ul class="nav pull-right">
+      </div>
+
+      <div class="collapse navbar-collapse">
+        <% if current_user %>
+          <ul class="nav navbar-nav navbar-right">
             <li>
               <%= link_to public_keys_path do %>
                 <i class="icon-key"></i>Your SSH Keys
@@ -49,8 +48,8 @@
             </li>
           </ul>
           <p class="navbar-text pull-right">Hi <%= current_user.username %>!</p>
-          <% else %>
-          <ul class="nav pull-right">
+        <% else %>
+          <ul class="nav navbar-nav navbar-right">
             <li><%= link_to 'Sign Up', new_user_path %></li>
             <li>
               <%= link_to new_session_path do %>
@@ -58,11 +57,10 @@
               <% end %>
             </li>
           </ul>
-          <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
-  </div>
+  </nav>
 
   <!-- Basic Content Layout -->
   <div class="container">

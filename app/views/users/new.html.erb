@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span4 offset4">
+  <div class="col-xs-4 col-xs-offset-4">
       <fieldset>
         <% if session['subscription_token'].present? %>
           <h1>Join Subscription</h1>
@@ -11,7 +11,7 @@
           <h1>Sign Up</h1> 
         <% end %>
 
-        <%= form_for @user do |f| %>
+        <%= form_for @user, :html => { :role => 'form' } do |f| %>
           <% if @user.errors.any? %>
             <div class="error_messages">
               <h2>Form is invalid</h2>
@@ -23,12 +23,21 @@
             </div>
           <% end %>
 
-          <%= f.text_field :username, :placeholder => 'Your user name for tmux.me', :tabindex => 1, :class => "input-block-level", :style => "margin-bottom: 25px;" %>
-          <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 2, :class => "input-block-level", :style => "margin-bottom: 25px;" %>
-          <%= f.password_field :password, :placeholder => 'Password', :tabindex => 3, :class => "input-block-level" %> 
-          <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 4, :class => "input-block-level" %>
-
-          <%= f.submit "Sign Up", {:class => "btn btn-primary", :tabindex => 5} %>
+          <div class="form-group">
+            <%= f.text_field :username, :placeholder => 'Your user name for tmux.me', :tabindex => 1, :class => "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 2, :class => "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.password_field :password, :placeholder => 'Password', :tabindex => 3, :class => "form-control" %> 
+          </div>
+          <div class="form-group">
+            <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 4, :class => "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit "Sign Up", {:class => "btn btn-default btn-primary", :tabindex => 5} %>
+          </div>
         <% end %>
       </fieldset>
   </div>
