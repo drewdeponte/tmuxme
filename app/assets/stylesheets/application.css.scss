@@ -11,30 +11,45 @@
  *= require_self
  *= require_tree .
  */
-@import "bootstrap";
+@import "twitter/bootstrap";
 @import "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css";
+
+.navbar-nav.nav > li {
+  padding-top: 10px;
+}
+
+.navbar-text {
+  margin-top: 25px;
+}
 
 body {
   padding-top: 80px;
 }
+
 .center {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
+
 label {
   color: #666;
   font-weight: bold;
 }
-th.public_key_name {
+
+tbody > tr > th.public_key_name {
+  padding-top: 15px;
   width: 160px;
 }
-td.public_key_value {
+
+tbody > tr > td.public_key_value {
+  padding-top: 15px;
   max-width: 700px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
+
 td.public_key_delete {
   width: 80px;
 }

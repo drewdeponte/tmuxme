@@ -1,15 +1,21 @@
 <div class="row">
-  <div class="span4 offset4">
+  <div class="col-xs-4 col-xs-offset-4">
     <fieldset>
       <h1>Log In</h1>
 
-      <%= form_tag sessions_path, :id => 'new_session_form' do %>
-        <%= text_field_tag :email, params[:email], :placeholder => 'Your Email Address', :tabindex => 1, :class => "input-block-level" %>
+      <%= form_tag sessions_path, :id => 'new_session_form', :role => 'form' do %>
+        <div class="form-group">
+          <%= text_field_tag :email, params[:email], :placeholder => 'Your Email Address', :tabindex => 1, :class => "form-control" %>
+        </div>
 
-        <%= password_field_tag :password, nil, :placeholder => 'Your Password', :tabindex => 2, :class => "input-block-level" %>
+        <div class="form-group">
+          <%= password_field_tag :password, nil, :placeholder => 'Your Password', :tabindex => 2, :class => "form-control" %>
+        </div>
 
-        <%= submit_tag "Log In", :tabindex => 3, :class => "btn btn-primary" %>
-        <%= link_to "Forgot Password?", new_password_reset_path, :tabindex => 4, :class => "pull-right" %>
+        <div class="form-group">
+          <%= submit_tag "Log In", :tabindex => 3, :class => "btn btn-default btn-primary" %>
+          <%= link_to "Forgot Password?", new_password_reset_path, :tabindex => 4, :class => "pull-right" %>
+        </div>
       <% end %>
     </fieldset>
   </div>
