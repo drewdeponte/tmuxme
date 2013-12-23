@@ -2,6 +2,8 @@
 
 ## Next Version
 
+## Version 1.1.0
+
 * Upgraded to Rails 4.0.2
 * Switched to Twitter Bootstrap 3
 
