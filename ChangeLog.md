@@ -2,6 +2,9 @@
 
 ## Next Version
 
+* Upgraded to Rails 4.0.2
+* Switched to Twitter Bootstrap 3
+
 ## Version 1.0.1
 
 * Fixed vulnerability in adding keys. (Thanks goes to joernchen of Phenoelit
