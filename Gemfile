@@ -57,6 +57,8 @@ gem 'cancan'
 # Gems used only for development and testing
 group :development, :test do
   gem 'capistrano-rbenv', "~> 2.0.0"
+  gem 'capistrano-rails', "~> 1.1.0"
+  gem 'capistrano-bundler', "~> 1.1.1"
   gem 'capistrano', "~> 3.0.1"
   gem 'factory_girl'
   gem 'cucumber-rails', :require => false

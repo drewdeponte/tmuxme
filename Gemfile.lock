@@ -38,6 +38,12 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 0.0.23)
+    capistrano-bundler (1.1.1)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2.0)
+    capistrano-rails (1.1.0)
+      capistrano (>= 3.0.0)
+      capistrano-bundler (>= 1.0.0)
     capistrano-rbenv (2.0.0)
       capistrano (~> 3.0)
       sshkit (~> 1.2.0)
@@ -224,6 +230,8 @@ DEPENDENCIES
   bootstrap-sass-rails (~> 3.0.3.0)
   cancan
   capistrano (~> 3.0.1)
+  capistrano-bundler (~> 1.1.1)
+  capistrano-rails (~> 1.1.0)
   capistrano-rbenv (~> 2.0.0)
   capybara
   capybara-mechanize
