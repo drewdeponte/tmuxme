@@ -33,8 +33,8 @@ When(/^I delete that key$/) do
 end
 
 Then(/^I should no longer see my public key$/) do
-  page.should_not have_content("my bar key")
-  page.should_not have_content("the actual bar key value")
+  expect(page).not_to have_content("my bar key")
+  expect(page).not_to have_content("the actual bar key value")
 end
 
 When(/^I attempt to add an exploit public key$/) do
@@ -45,5 +45,5 @@ When(/^I attempt to add an exploit public key$/) do
 end
 
 Then(/^I should see the invalid key message$/) do
-  page.should have_content("Invalid public key format.")
+  expect(page).to have_content("Invalid public key format.")
 end

@@ -8,7 +8,7 @@ When /^I fill out and submit the signup form$/ do
 end
 
 Then /^I should see the successfully signed up message$/ do
-  page.should have_content("Thank you for signing up!")
+  expect(page).to have_content("Thank you for signing up!")
 end
 
 Given(/^I am a guest$/) do

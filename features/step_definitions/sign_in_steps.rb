@@ -10,7 +10,7 @@ When /^I fill out and submit the sign in form$/ do
 end
 
 Then /^I should see the successfully logged in message$/ do
-  page.should have_content('Logged in!')
+  expect(page).to have_content('Logged in!')
 end
 
 When /^I fill out and submit the sign in form with invalid credentials$/ do
@@ -21,5 +21,5 @@ When /^I fill out and submit the sign in form with invalid credentials$/ do
 end
 
 Then /^I should see an failed to log in message$/ do
-  page.should have_content('Email or password is invalid!')
+  expect(page).to have_content('Email or password is invalid!')
 end

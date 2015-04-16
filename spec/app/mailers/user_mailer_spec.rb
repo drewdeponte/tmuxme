@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe UserMailer do
   describe "#password_reset" do
@@ -6,11 +6,11 @@ describe UserMailer do
     let(:mail) { UserMailer.password_reset(user) }
 
     it "sets the to field to the users e-mail address" do
-      mail.to.should == [user.email]
+      expect(mail.to).to eq [user.email]
     end
 
     it "sets the from field to noreply@tmux.me" do
-      mail.from.should == ['noreply@tmux.me']
+      expect(mail.from).to eq ['noreply@tmux.me']
     end
 
     it "sets the subject to 'Password Reset'" do

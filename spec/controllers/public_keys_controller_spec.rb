@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe PublicKeysController do
   context "when user is NOT logged in" do
@@ -148,7 +148,7 @@ describe PublicKeysController do
         let(:public_key_stub) { double('public key', destroy: nil) }
 
         before do
-          controller.stub_chain(:current_user, :public_keys, :find_by_id).and_return(public_key_stub)
+          allow(controller).to receive_message_chain(:current_user, :public_keys, :find_by_id).and_return(public_key_stub)
         end
 
         it "deletes the public key" do
@@ -169,7 +169,7 @@ describe PublicKeysController do
 
       context "when does NOT find the specified key" do
         before do
-          controller.stub_chain(:current_user, :public_keys, :find_by_id).and_return(nil)
+          allow(controller).to receive_message_chain(:current_user, :public_keys, :find_by_id).and_return(nil)
         end
 
         it "redirects to the list public keys page" do
