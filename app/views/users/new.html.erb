@@ -8,7 +8,7 @@
             account please <%= link_to 'Sign In', new_session_path, {:class => "btn btn-mini btn-primary"} -%>.
           </div>
         <% else %>
-          <h1>Sign Up</h1> 
+          <h1>Sign Up</h1>
         <% end %>
 
         <%= form_for @user, :html => { :role => 'form' } do |f| %>
@@ -30,7 +30,7 @@
             <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 2, :class => "form-control" %>
           </div>
           <div class="form-group">
-            <%= f.password_field :password, :placeholder => 'Password', :tabindex => 3, :class => "form-control" %> 
+            <%= f.password_field :password, :placeholder => 'Password', :tabindex => 3, :class => "form-control" %>
           </div>
           <div class="form-group">
             <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 4, :class => "form-control" %>

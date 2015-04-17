@@ -3,5 +3,5 @@ When /^I sign out$/ do
 end
 
 Then /^I should see the successfully logged out message$/ do
-  page.should have_content('Logged out!')
+  expect(page).to have_content('Logged out!')
 end

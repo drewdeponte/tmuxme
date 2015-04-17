@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
     self.generate_password_reset_token
     self.password_reset_sent_at = Time.zone.now
     self.save!
-    UserMailer.password_reset(self).deliver
+    UserMailer.password_reset(self).deliver_now
   end
 
   def generate_password_reset_token
