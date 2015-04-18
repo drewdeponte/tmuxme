@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require 'webmock/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -25,6 +26,24 @@ require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!
 
 FactoryGirl.find_definitions
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:github, {
+  uid: '12345',
+  info: {
+    nickname: 'nickname',
+    email: 'email',
+    name: 'name',
+    image: 'avatar_url',
+    urls: {
+      GitHub: 'html_url',
+      Blog: 'blog'
+    }
+  },
+  credentials: {
+    token: 'token'
+  }
+})
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

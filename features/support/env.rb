@@ -64,3 +64,5 @@ end
 Cucumber::Rails::Database.javascript_strategy = :transaction
 
 FactoryGirl.find_definitions
+
+OmniAuth.config.test_mode = true
