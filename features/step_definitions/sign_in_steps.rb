@@ -1,5 +1,5 @@
 Given /^I am a user$/ do
-  @user = User.create!(:email => 'someuser@example.com', :password => 'bluepork', :password_confirmation => 'bluepork')
+  @user = User.create!(:email => 'someuser@example.com', :username => 'username', :password => 'bluepork', :password_confirmation => 'bluepork')
 end
 
 When /^I fill out and submit the sign in form$/ do

@@ -15,3 +15,4 @@
 /tmp
 zeus\.json
 custom_plan\.rb
+.env
