@@ -39,6 +39,9 @@ gem 'unicorn', '~> 4.8.3'
 
 # Use cancan for authorization
 gem 'cancan', '~> 1.6.10'
+gem 'omniauth', '~> 1.2.2'
+gem 'omniauth-github', '~> 1.1.2'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -51,6 +54,7 @@ gem 'cancan', '~> 1.6.10'
 
 # Gems used only for development and testing
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.0.1'
   gem 'capistrano-rbenv', "~> 2.0.3"
   gem 'capistrano-rails', "~> 1.1.2"
   gem 'capistrano-bundler', "~> 1.1.4"
@@ -63,5 +67,6 @@ group :development, :test do
   gem 'capybara-mechanize', '~> 1.4.0'
   gem 'poltergeist', '~> 1.6.0'
   gem 'database_cleaner', '~> 1.4.1'
-  gem 'webmock', '~> 1.21.0'
+  gem 'webmock', '~> 1.21.0', require: false
+  gem 'pry'
 end
