@@ -13,5 +13,7 @@ Tmuxme::Application.routes.draw do
     end
   end
 
-  root :to => 'landing_page#show'
+  match '/auth/:provider/callback', to: 'auth#callback', via: [:get, :post]
+
+  root to: 'landing_page#show'
 end
