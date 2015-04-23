@@ -57,39 +57,96 @@ describe User do
     end
   end
 
-  describe ".create_from_auth_token" do
+  describe ".create_from_auth_hash" do
     let(:user) { double('user').as_null_object }
+    let(:auth_hash) { double('auth_hash').as_null_object }
 
-    it "creates a new user from the passed hash" do
-      password = double
-      allow(User).to receive(:generate_random_password).and_return(password)
-      auth_hash = {'info' => {'nickname' => 'nickname', 'email' => 'email'}}
-      expect(User).to receive(:new).with({email: 'email', username: 'nickname', password: password}).and_return(user)
-      User.create_from_auth_hash(auth_hash)
+    context "when the user already exists" do
+      before { allow(User).to receive(:exists?).and_return(true) }
+
+      it "throws an AuthTokenSignUpError" do
+        expect { User.create_from_auth_hash(auth_hash) }.to raise_error(AuthTokenSignUpError, "You have alreay registered an account. Login to link your #{auth_hash} account with your TmuxMe account")
+      end
     end
 
-    it "saves the new user" do
-      allow(User).to receive(:new).and_return(user)
-      expect(user).to receive(:save)
-      User.create_from_auth_hash(double.as_null_object)
-    end
+    context "when the user does not already exist" do
+      before { allow(User).to receive(:exists?).and_return(false) }
 
-    context "when the user is saved successfully" do
-      before do
+      it "creates a new user from the passed hash" do
+        password = double
+        allow(User).to receive(:generate_random_password).and_return(password)
+        auth_hash = {'info' => {'nickname' => 'nickname', 'email' => 'email'}}
+        expect(User).to receive(:new).with({email: 'email', username: 'nickname', password: password}).and_return(user)
+        User.create_from_auth_hash(auth_hash)
+      end
+
+      it "saves the new user" do
         allow(User).to receive(:new).and_return(user)
+        expect(user).to receive(:save)
+        User.create_from_auth_hash(auth_hash)
       end
 
-      it "creates a new auth token" do
-        auth_tokens = double('auth_tokens')
-        allow(user).to receive(:auth_tokens).and_return(auth_tokens)
-        expect(auth_tokens).to receive(:create)
-        User.create_from_auth_hash(double.as_null_object)
+      context "when the user is saved successfully" do
+        before do
+          allow(User).to receive(:new).and_return(user)
+          allow(user).to receive(:save).and_return(true)
+        end
+
+        it "registers a new auth token" do
+          expect(user).to receive(:register_auth_token)
+          User.create_from_auth_hash(auth_hash)
+        end
+
+        it "returns the user" do
+          expect(User.create_from_auth_hash(double.as_null_object)).to eq(user)
+        end
+      end
+
+      context "when the user is not saved successfully" do
+        before do
+          allow(User).to receive(:new).and_return(user)
+          allow(user).to receive(:save).and_return(false)
+        end
+
+        it "throws an AuthTokenSignUpError" do
+          expect { User.create_from_auth_hash(auth_hash) }.to raise_error(AuthTokenSignUpError, "Error encountered processing your #{auth_hash} account")
+        end
+      end
+    end
+  end
+
+  describe "#register_auth_token" do
+    it "creates a new auth token for the user" do
+      auth_tokens = double('auth_tokens')
+      allow(subject).to receive(:auth_tokens).and_return(auth_tokens)
+      expect(auth_tokens).to receive(:create)
+      subject.register_auth_token(double.as_null_object)
+    end
+  end
+
+  describe "#set_new_user" do
+    context "when a user object is newly saved" do
+      it "sets the new_user attribute to true" do
+        user = FactoryGirl.create(:user)
+        expect(user.new_user).to eq(true)
       end
     end
 
-    it "returns the user" do
-      allow(User).to receive(:new).and_return(user)
-      expect(User.create_from_auth_hash(double.as_null_object)).to eq(user)
+    context "when the user object is not newly saved" do
+      it "does not set the new_user attribute" do
+        id = FactoryGirl.create(:user).id
+        user = User.find(id)
+        expect(user.new_user).to eq(nil)
+      end
+    end
+  end
+
+  describe "#auth_token_hash" do
+    let(:auth_token) { double('auth_tokens', provider: 'provider') }
+
+    it "returns a hash indexed by provider" do
+      allow(subject).to receive(:auth_tokens).and_return([auth_token])
+      expect(subject.auth_token_hash).to eq({'provider' => auth_token})
     end
   end
 
@@ -109,12 +166,13 @@ describe User do
         allow(AuthToken).to receive(:where).and_return(auth_tokens)
       end
 
-      it "returns the user from the auth token" do
+      it "returns the user from the auth token and a logged in result message" do
         expect(User.find_or_create_from_auth_hash(auth_hash)).to eq(user)
       end
     end
 
     context "when the auth token is not found" do
+      let(:new_user) { double('new_user').as_null_object }
       before do
         allow(AuthToken).to receive(:where).and_return([])
       end
@@ -125,7 +183,6 @@ describe User do
       end
 
       it "returns the newly created user" do
-        new_user = double('new_user')
         allow(User).to receive(:create_from_auth_hash).and_return(new_user)
         expect(User.find_or_create_from_auth_hash(auth_hash)).to eq(new_user)
       end

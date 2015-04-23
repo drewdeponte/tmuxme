@@ -6,8 +6,8 @@ Before('@omniauth_test') do
     uid: '12345',
     provider: 'github',
     info: {
-      nickname: 'nickname',
-      email: 'email',
+      nickname: 'username',
+      email: 'someuser@tmuxme.com',
       name: 'name',
       image: 'avatar_url',
       urls: {

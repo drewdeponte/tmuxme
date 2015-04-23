@@ -10,5 +10,6 @@ Feature: Github Sign In
     And I have a github token registered
     When I visit the login page
     And I click the github login button
-    Then I should see the user greeting for "username"
+    Then I should see a successfully signed in message 
+    And I should see the user greeting for "username"
 

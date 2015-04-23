@@ -15,5 +15,9 @@ Then(/^I should see an auth token removal success message$/) do
 end
 
 Then(/^I should not see the github token$/) do
-  expect(page).not_to have_content("Github") 
+  expect(page).to have_content("Link my Github account") 
+end
+
+When(/^I click on the link github account button$/) do
+  click_link("Link my Github account")
 end

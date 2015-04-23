@@ -3,7 +3,7 @@ Given(/^I have a public key$/) do
 end
 
 Given(/^I am logged in$/) do
-  login('someuser@example.com', 'bluepork')
+  login('someuser@tmuxme.com', 'bluepork')
 end
 
 When(/^I go to the public keys page$/) do

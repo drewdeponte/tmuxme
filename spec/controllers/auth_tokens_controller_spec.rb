@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'user'
 
 describe AuthTokensController do
   let(:auth_hash) { OmniAuth.config.mock_auth[:github] }
@@ -17,7 +18,7 @@ describe AuthTokensController do
 
       it "assigns auth tokens to @auth_tokens" do
         auth_tokens = double('auth_tokens')
-        allow(current_user).to receive(:auth_tokens).and_return(auth_tokens)
+        allow(current_user).to receive(:auth_token_hash).and_return(auth_tokens)
         get :index
         expect(assigns[:auth_tokens]).to eq(auth_tokens)
       end
@@ -57,15 +58,53 @@ describe AuthTokensController do
         expect(response).to redirect_to(auth_tokens_path)
       end
     end
-
   end
 
   describe "#callback" do
-    let(:user) { double(id: 'the_id') }
+    context "when a current session is present" do
+      let(:user) { double(id: 'the_id', present?: true).as_null_object }
+      before { allow(subject).to receive(:current_user).and_return(user) }
+
+      it "registers the new auth token" do
+        expect(user).to receive(:register_auth_token)
+        post :callback, {provider: 'github'}
+      end
+
+      it "redirects to auth tokens page" do
+        post :callback, {provider: 'github'}
+        expect(response).to redirect_to(auth_tokens_path)
+      end
+    end
+
+    context "when a current session is not present" do
+      before { allow(subject).to receive(:current_user).and_return(nil) }
+
+      it "starts the new user signup" do
+        allow(subject).to receive(:render)
+        expect(subject).to receive(:new_user_signup)
+        post :callback, {provider: 'github'}
+      end
+    end
+
+    context "when an AuthTokenSignUpError is encountered" do
+      before { allow(subject).to receive(:new_user_signup).and_raise(AuthTokenSignUpError, "error message") }
+
+      it "redirects to the new_user_url" do
+        post :callback, {provider: 'github'}
+        expect(response).to redirect_to(new_user_path)
+      end
+    end
+  end
+
+  describe "#new_user_signup" do
+    let(:user) { double(id: 'the_id').as_null_object }
+
+    before { allow(subject).to receive(:auth_hash).and_return(auth_hash) }
 
     it "looks up a user by auth token" do
+      allow(subject).to receive(:redirect_to)
       expect(User).to receive(:find_or_create_from_auth_hash).with(auth_hash).and_return(user)
-      post :callback, {provider: 'github'}
+      subject.send(:new_user_signup)
     end
 
     context "when a user is not returned" do
@@ -73,9 +112,9 @@ describe AuthTokensController do
         allow(User).to receive(:find_or_create_from_auth_hash).and_return(nil)
       end
 
-      it "redirects to the new user url" do
-        post :callback, {provider: 'github'}
-        expect(subject).to redirect_to(new_user_url)
+      it "redirects and sets an error flash message" do
+        expect(subject).to receive(:redirect_to).with(new_user_url, {flash: { error: "Error encountered creating your account" }})
+        subject.send(:new_user_signup)
       end
     end
 
@@ -85,13 +124,34 @@ describe AuthTokensController do
       end
 
       it "sets the session user_id to the user id" do
-        post :callback, {provider: 'github'}
-        expect(session[:user_id]).to eq('the_id')
+        session = double('session')
+        allow(subject).to receive(:redirect_to)
+        allow(subject).to receive(:session).and_return(session)
+        expect(session).to receive(:[]=).with(:user_id, 'the_id')
+        subject.send(:new_user_signup)
       end
 
       it "redirects to the root url" do
-        post :callback, {provider: 'github'}
-        expect(subject).to redirect_to(root_url)
+        expect(subject).to receive(:redirect_to).with(root_url, any_args)
+        subject.send(:new_user_signup)
+      end
+
+      context "when user is a new user" do
+        before { allow(user).to receive(:new_user).and_return(true) }
+
+        it "sets the flash message for a successful signup" do
+          expect(subject).to receive(:redirect_to).with(root_url, {flash: { success: "Successfully signed up" }})
+          subject.send(:new_user_signup)
+        end
+      end
+
+      context "when user is not a new user" do
+        before { allow(user).to receive(:new_user).and_return(nil) }
+
+        it "sets the flash message for a successful signup" do
+          expect(subject).to receive(:redirect_to).with(root_url, {flash: { success: "Successfully logged in" }})
+          subject.send(:new_user_signup)
+        end
       end
     end
   end

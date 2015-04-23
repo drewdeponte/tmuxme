@@ -4,6 +4,15 @@ Feature: Auth Token Management
   I want to be able add or remove auth tokens
 
   @omniauth_test
+  Scenario: A user links their tmuxme account to their github account
+    Given I am a user
+    And I am logged in
+    And I have a github account
+    When I visit the auth token management page
+    And I click on the link github account button
+    Then I should see the granted github token
+
+  @omniauth_test
   Scenario: A user views all registered auth tokens
     Given I am a user
     And I am logged in
