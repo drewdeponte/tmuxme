@@ -2,7 +2,7 @@ class AuthTokensController < ApplicationController
   before_filter :authenticate!, only: [:index, :destroy]
 
   def index
-    @auth_tokens = current_user.auth_tokens
+    @auth_tokens = current_user.auth_token_hash
   end
 
   def destroy
@@ -13,19 +13,36 @@ class AuthTokensController < ApplicationController
   end
 
   def callback
-    user = User.find_or_create_from_auth_hash(auth_hash)
-
-    if user
-      session[:user_id] = user.id
-      redirect_to root_url
+    if current_user.present?
+      current_user.register_auth_token(auth_hash)
+      redirect_to auth_tokens_path
     else
-      redirect_to new_user_url, flash: { error: "Error encountered creating your account" }
+      new_user_signup
     end
+
+  rescue AuthTokenSignUpError => e
+    redirect_to new_user_url, flash: { error: e.message }
   end
 
   protected
 
   def auth_hash
     request.env['omniauth.auth']
+  end
+
+  def new_user_signup
+    user = User.find_or_create_from_auth_hash(auth_hash)
+
+    if user
+      session[:user_id] = user.id
+      if user.new_user
+        message = "Successfully signed up"
+      else
+        message = "Successfully logged in"
+      end
+      redirect_to root_url, flash: { success: message }
+    else
+      redirect_to new_user_url, flash: { error: "Error encountered creating your account" }
+    end
   end
 end

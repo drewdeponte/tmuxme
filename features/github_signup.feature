@@ -10,5 +10,13 @@ Feature: Github Signup
     And I have a github account
     When I visit the signup page
     And I click the github sign up button
-    Then I should see the user greeting for "nickname"
+    Then I should see a successfully signed up message 
+    And I should see the user greeting for "username"
 
+  @omniauth_test
+  Scenario: An existing user attempts to login with their github account
+    Given I am a user
+    And I have a github account
+    When I visit the signup page
+    And I click the github sign up button
+    Then I should see a warning that my account is already registered

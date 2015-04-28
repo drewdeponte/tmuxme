@@ -1,6 +1,6 @@
 When /^I fill out and submit the forgot password form$/ do
   visit new_password_reset_path
-  fill_in "email", :with => 'someuser@example.com'
+  fill_in "email", :with => 'someuser@tmuxme.com'
   click_button 'Request Password Reset'
 end
 
