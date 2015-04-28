@@ -1,0 +1,36 @@
+<div class="row">
+  <%= render partial: "partials/sidebar" %>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+    <h2>Update Account</h2>
+    <fieldset>
+      <%= form_for @user, url: account_path, html: { role: 'form' } do |f| %>
+        <% if @user.errors.any? %>
+          <div class="error_messages">
+            <h2>Form is invalid</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :email, "Email Address" %>
+          <%= f.text_field :email, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password, "Password" %>
+          <%= f.password_field :password, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation, "Password Confirmation" %>
+          <%= f.password_field :password_confirmation, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Update", {:class => "btn btn-default btn-primary"} %>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+</div>

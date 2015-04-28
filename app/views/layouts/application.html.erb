@@ -37,23 +37,23 @@
         <% if current_user %>
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <%= link_to public_keys_path do %>
-                <i class="icon-key"></i>Your SSH Keys
+              <%= link_to account_path do %>
+                <i class="fa fa-user"></i> Account
               <% end %>
             </li>
             <li>
               <%= link_to session_path('current'), method: "delete" do %>
-                <i class="icon-signout"></i>Sign Out
+                <i class="fa fa-sign-in"></i> Sign Out
               <% end %>
             </li>
           </ul>
-          <p class="navbar-text pull-right">Hi <%= current_user.username %>!</p>
+          <p class="navbar-text pull-right"> Hi <%= current_user.username %>!</p>
         <% else %>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to 'Sign Up', new_user_path %></li>
             <li>
               <%= link_to new_session_path do %>
-                <i class="icon-signin"></i>Log In
+                <i class="fa fa-sign-in"></i>Log In
               <% end %>
             </li>
           </ul>
@@ -93,7 +93,7 @@
     <div class="row-fluid text-center">
       <p>
         v<%= ::Tmuxme::VERSION -%> &bull;
-        <a href="mailto:support@tmux.me"><i class="icon-envelope-alt"></i>Email Us</a>
+        <a href="mailto:support@tmux.me"><i class="fa fa-envelope"></i> Email Us</a>
       </p>
     </div>
   </footer>

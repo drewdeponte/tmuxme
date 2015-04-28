@@ -1,12 +1,13 @@
 <div class="row">
-  <div class="col-xs-12">
+  <%= render partial: "partials/sidebar" %>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
     <section>
-      <h1>Your SSH Keys</h1>
+      <h2>Your SSH Keys</h2>
       <p>Need help with keys? GitHub has <a href="https://help.github.com/categories/56/articles" target="_new">great documentation on SSH keys</a>.</p>
       <table id="public_keys_table" class="table table-striped">
         <% @public_keys.each do |public_key| %>
           <tr id="public_key_<%= public_key.id %>">
-            <th class="public_key_name"><i class="icon-key"></i> <%= public_key.name %></th>
+            <th class="public_key_name"><i class="fa fa-key"></i> <%= public_key.name %></th>
             <td class="public_key_value" title="<%= public_key.value %>"><%= public_key.value %></td>
             <td class="public_key_delete"><%= link_to 'Delete', public_key_path(public_key), data: { confirm: 'Are you sure?' }, method: :delete, :class => "btn btn-danger btn-small" %></td>
           </tr>
