@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12">
+    <section>
+      <h1>Authorized Applications</h1>
+      <table id="auth_tokens_table" class="table">
+        <% @auth_tokens.each do |auth_token| %>
+          <tr id="auth_token_<%= auth_token.id %>">
+            <th class="auth_token_name"><i class="fa fa-<%= auth_token.provider.downcase %>"></i> <%= auth_token.provider.titlecase %></th>
+            <td class="auth_token_delete"><%= link_to 'Remove', auth_token_path(auth_token), data: { confirm: 'Are you sure?' }, method: :delete, :class => "btn btn-danger btn-small" %></td>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+  </div>
+</div>
