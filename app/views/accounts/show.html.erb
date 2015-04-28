@@ -1,0 +1,13 @@
+<div class="row">
+  <%= render partial: "partials/sidebar" %>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+    <h2>Account</h2>
+    <dl class="dl-horizontal">
+      <dt>Username</dt>
+      <dd><%= @user.username %></dd>
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
+    </dl>
+    <%= link_to "Edit", edit_account_path, {:class => "btn btn-default btn-primary"} %>
+  </div>
+</div>

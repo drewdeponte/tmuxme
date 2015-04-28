@@ -1,5 +1,6 @@
 Tmuxme::Application.routes.draw do
   resources :users, only: [:new, :create]
+  resource :account, except: [:new, :create, :destroy, :patch]
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :public_keys, only: [:index, :new, :create, :destroy]

@@ -2,7 +2,7 @@ class AuthTokensController < ApplicationController
   before_filter :authenticate!, only: [:index, :destroy]
 
   def index
-    @auth_tokens = current_user.auth_token_hash
+    @auth_tokens = AuthTokenProcessor.auth_token_hash_from(current_user)
   end
 
   def destroy
@@ -14,7 +14,7 @@ class AuthTokensController < ApplicationController
 
   def callback
     if current_user.present?
-      current_user.register_auth_token(auth_hash)
+      AuthTokenProcessor.register_auth_token(current_user, auth_hash)
       redirect_to auth_tokens_path
     else
       new_user_signup
@@ -31,7 +31,7 @@ class AuthTokensController < ApplicationController
   end
 
   def new_user_signup
-    user = User.find_or_create_from_auth_hash(auth_hash)
+    user = AuthTokenProcessor.find_or_create_user_from_auth_hash(auth_hash)
 
     if user
       session[:user_id] = user.id
