@@ -1,6 +1,5 @@
 Feature: Auth Token Management
-
-  In order to maange all of my auth token grants
+  In order to manage all of my auth token grants
   As a User with granted auth tokens
   I want to be able add or remove auth tokens
 
