@@ -4,7 +4,7 @@ Feature: Manage Public Keys
   As a User
   I want to be able to manage my public keys
 
-  Scenario: A user views all of his public keys 
+  Scenario: A user views all of his public keys
     Given I am a user
     And I am logged in
     And I have a public key
@@ -29,3 +29,11 @@ Feature: Manage Public Keys
     And I am logged in
     When I attempt to add an exploit public key
     Then I should see the invalid key message
+
+  @omniauth_test
+  Scenario: A user imports their keys from github
+    Given I am a user
+    And I am logged in
+    And I have a github token registered
+    When I attempt to import keys from github
+    Then I should see the github key

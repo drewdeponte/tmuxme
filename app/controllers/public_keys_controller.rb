@@ -34,6 +34,11 @@ class PublicKeysController < ApplicationController
     redirect_to public_keys_path
   end
 
+  def import
+    PublicKeyImporter.import_github_keys(current_user)
+    redirect_to public_keys_path
+  end
+
   private
 
   def public_key_params

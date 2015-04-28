@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-xs-4 col-xs-offset-4">
+    <%= render partial: "partials/flash" %>
     <fieldset>
       <h2>Reset Password</h2>
       <%= form_for @user, :url => password_reset_path(params[:id], :html => { :role => 'form' }) do |f| %>

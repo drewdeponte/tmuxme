@@ -2,6 +2,7 @@
   <%= render partial: "partials/sidebar" %>
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
     <section>
+      <%= render partial: "partials/flash" %>
       <h2>Your SSH Keys</h2>
       <p>Need help with keys? GitHub has <a href="https://help.github.com/categories/56/articles" target="_new">great documentation on SSH keys</a>.</p>
       <table id="public_keys_table" class="table table-striped">
@@ -16,6 +17,11 @@
     </section>
     <section class="center">
       <%= link_to 'Add Another Key', new_public_key_path, :class => 'btn btn-large btn-primary' %>
+      <% if current_user.auth_tokens.where(provider: 'github').exists? %>
+        <%= link_to import_public_keys_path, :class => 'btn btn-social btn-github' do %>
+          <i class="fa fa-github"></i> Import Keys from Github
+        <% end %>
+      <% end %>
     </section>
   </div>
 </div>

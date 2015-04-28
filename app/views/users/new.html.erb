@@ -1,49 +1,50 @@
 <div class="row">
   <div class="col-xs-4 col-xs-offset-4">
-      <fieldset>
-        <% if session['subscription_token'].present? %>
-          <h2>Join Subscription</h2>
-          <div class="well well-large">
-            In order to Join the Subscription please Sign Up for a free account. Or, if you already have an
-            account please <%= link_to 'Sign In', new_session_path, {:class => "btn btn-mini btn-primary"} -%>.
+    <%= render partial: "partials/flash" %>
+    <fieldset>
+      <% if session['subscription_token'].present? %>
+        <h2>Join Subscription</h2>
+        <div class="well well-large">
+          In order to Join the Subscription please Sign Up for a free account. Or, if you already have an
+          account please <%= link_to 'Sign In', new_session_path, {:class => "btn btn-mini btn-primary"} -%>.
+        </div>
+      <% else %>
+        <h2>Sign Up</h2>
+      <% end %>
+
+      <%= form_for @user, :html => { :role => 'form' } do |f| %>
+        <% if @user.errors.any? %>
+          <div class="error_messages">
+            <h2>Form is invalid</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
           </div>
-        <% else %>
-          <h2>Sign Up</h2>
         <% end %>
 
-        <%= form_for @user, :html => { :role => 'form' } do |f| %>
-          <% if @user.errors.any? %>
-            <div class="error_messages">
-              <h2>Form is invalid</h2>
-              <ul>
-                <% @user.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-
-          <div class="form-group">
-            <%= f.text_field :username, :placeholder => 'Your user name for tmux.me', :tabindex => 1, :class => "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 2, :class => "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= f.password_field :password, :placeholder => 'Password', :tabindex => 3, :class => "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 4, :class => "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= f.submit "Sign Up", {:class => "btn btn-default btn-primary", :tabindex => 5} %>
-          </div>
-        <% end %>
-      </fieldset>
-      <p class="text-center">-- OR --</p>
-      <a class="btn btn-block btn-social btn-github" href="/auth/github">
-        <i class="fa fa-github"></i>
-        Sign up with GitHub
-      </a>
+        <div class="form-group">
+          <%= f.text_field :username, :placeholder => 'Your user name for tmux.me', :tabindex => 1, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.text_field :email, :placeholder => 'Your Email Address', :tabindex => 2, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.password_field :password, :placeholder => 'Password', :tabindex => 3, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.password_field :password_confirmation, :placeholder => 'Password Confirmation', :tabindex => 4, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Sign Up", {:class => "btn btn-default btn-primary", :tabindex => 5} %>
+        </div>
+      <% end %>
+    </fieldset>
+    <p class="text-center">-- OR --</p>
+    <a class="btn btn-block btn-social btn-github" href="/auth/github">
+      <i class="fa fa-github"></i>
+      Sign up with GitHub
+    </a>
   </div>
 </div>
