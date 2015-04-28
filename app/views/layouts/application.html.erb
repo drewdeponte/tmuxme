@@ -8,10 +8,10 @@
 	<meta charset="utf-8" />
 
   <!-- <link rel="icon" href="/favicon.ico" /> -->
-	
+
 	<!-- Uncomment to make IE8 render like IE7 -->
 	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
-	
+
 	<!-- Set the viewport width to device width for mobile -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
@@ -67,21 +67,6 @@
     <div class="row-fluid">
       <%= content_for?(:subtitle) ? yield(:subtitle) : "" %>
     </div>
-
-    <% flash.each do |name, msg| %>
-      <% if name == :success %>
-        <div class="alert alert-success">
-      <% elsif name == :error %>
-        <div class="alert alert-error">
-      <% elsif name == :info %>
-        <div class="alert alert-info">
-      <% else %>
-        <div class="alert">
-      <% end %>
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <%= msg -%>
-      </div>
-    <% end %>
 
     <%= yield %>
 

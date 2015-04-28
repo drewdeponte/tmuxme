@@ -41,6 +41,7 @@ gem 'unicorn', '~> 4.8.3'
 gem 'cancan', '~> 1.6.10'
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-github', '~> 1.1.2'
+gem 'github_api', '~> 0.12.3'
 
 
 # Use Capistrano for deployment

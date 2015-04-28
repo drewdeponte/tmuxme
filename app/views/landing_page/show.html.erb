@@ -9,6 +9,7 @@
 </div>
 <div class="row">
   <div class="col-xs-6">
+    <%= render partial: "partials/flash" %>
     <% unless current_user.present? %>
       <h2>Why would I want this?</h2>
       <ul>

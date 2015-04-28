@@ -47,3 +47,13 @@ end
 Then(/^I should see the invalid key message$/) do
   expect(page).to have_content("Invalid public key format.")
 end
+
+When(/^I attempt to import keys from github$/) do
+  stub_request(:any, /api\.github\.com/).to_return(body: '[{"id": 34697, "key": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA8BH++fTXcEZIjOCT1ZbE5HthApY+NnsVC/p9xZJJNV1U1bcKtc2mYAaHuRZtuq/KS3t7wjSPSlmNEfbgKDRWItOvqmGKO65IMJIhhWaa04fMy4kXP72LgdxSFGVE/SPXvf7XoVB7WI9FoaMXwE/RNGcx26jZnuFR4uXgeerpRM6M79+qpu0ch5bOa4zeP/iHR9ul188LIKc0HGqxfBtlz4MEpMVAf8bUGlEbEDp3l2qHoZgX7OcAaQDk/qnRDYU9qvHNacNkIW/j2M81OnjrVhOMj45cr6A5Ns/7eqN/QBR6vnWuXlLGAkx/isJZyR41KU0SpCVA2Xa+U2WHaV+QaQ==", "url": "https://api.github.com/user/keys/34697", "title": "Prometheus", "verified": true, "created_at": null}]')
+  visit '/public_keys'
+  click_link("Import Keys from Github")
+end
+
+Then(/^I should see the github key$/) do
+  expect(page).to have_content("Prometheus")
+end

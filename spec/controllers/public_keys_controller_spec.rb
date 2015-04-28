@@ -177,7 +177,25 @@ describe PublicKeysController do
           expect(response).to redirect_to(public_keys_path)
         end
       end
+    end
+  end
 
+  describe "GET import" do
+    let(:current_user_mock) { double('current user') }
+
+    before do
+      allow(controller).to receive(:current_user).and_return(current_user_mock)
+    end
+
+    it "imports all keys for the current user" do
+      expect(PublicKeyImporter).to receive(:import_github_keys).with(current_user_mock)
+      get :import
+    end
+
+    it "redirects to to the list public keys page" do
+      allow(PublicKeyImporter).to receive(:import_github_keys)
+      get :import
+      expect(response).to redirect_to(public_keys_path)
     end
   end
 end

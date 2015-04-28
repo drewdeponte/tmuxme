@@ -15,5 +15,5 @@ Then(/^I should see the user greeting for "(.*?)"$/) do |username|
 end
 
 Given(/^I have a github token registered$/) do
-  @user.auth_tokens.create(uid: '12345', provider: 'github')
+  @user.auth_tokens.create(uid: '12345', provider: 'github', credentials: {token: "token"}, info: { nickname: "nickname" })
 end

@@ -1,6 +1,7 @@
 <div class="row">
   <%= render partial: "partials/sidebar" %>
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+    <%= render partial: "partials/flash" %>
     <h2>Authorized Applications</h2>
     <section>
       <table id="auth_tokens_table" class="table">
@@ -14,7 +15,7 @@
           <% else %>
             <tr id="auth_token_<%= provider %>">
               <th class="auth_token_name">
-                <a class="btn btn-block btn-social btn-github" href="/auth/<%= provider %>">
+                <a class="btn btn-social btn-github" href="/auth/<%= provider %>">
                   <i class="fa fa-<%= provider %>"></i>
                   Link my <%= provider.titlecase %> account
                 </a>
