@@ -18,7 +18,7 @@ describe AuthTokensController do
 
       it "assigns auth tokens to @auth_tokens" do
         auth_tokens = double('auth_tokens')
-        allow(current_user).to receive(:auth_token_hash).and_return(auth_tokens)
+        allow(AuthTokenProcessor).to receive(:auth_token_hash_from).with(current_user).and_return(auth_tokens)
         get :index
         expect(assigns[:auth_tokens]).to eq(auth_tokens)
       end
@@ -66,7 +66,7 @@ describe AuthTokensController do
       before { allow(subject).to receive(:current_user).and_return(user) }
 
       it "registers the new auth token" do
-        expect(user).to receive(:register_auth_token)
+        expect(AuthTokenProcessor).to receive(:register_auth_token)
         post :callback, {provider: 'github'}
       end
 
@@ -103,13 +103,13 @@ describe AuthTokensController do
 
     it "looks up a user by auth token" do
       allow(subject).to receive(:redirect_to)
-      expect(User).to receive(:find_or_create_from_auth_hash).with(auth_hash).and_return(user)
+      expect(AuthTokenProcessor).to receive(:find_or_create_user_from_auth_hash).with(auth_hash).and_return(user)
       subject.send(:new_user_signup)
     end
 
     context "when a user is not returned" do
       before do
-        allow(User).to receive(:find_or_create_from_auth_hash).and_return(nil)
+        allow(AuthTokenProcessor).to receive(:find_or_create_user_from_auth_hash).and_return(nil)
       end
 
       it "redirects and sets an error flash message" do
@@ -120,7 +120,7 @@ describe AuthTokensController do
 
     context "when the user is returned" do
       before do
-        allow(User).to receive(:find_or_create_from_auth_hash).and_return(user)
+        allow(AuthTokenProcessor).to receive(:find_or_create_user_from_auth_hash).and_return(user)
       end
 
       it "sets the session user_id to the user id" do
